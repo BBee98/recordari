@@ -14,6 +14,10 @@ func main() {
 		log.Fatalf("Hubo un error en la lectura del fichero")
 	}
 
-	google_get_calendar_events.Get(service)
+	events := google_get_calendar_events.Get(service)
+
+	if len(events) != 0 {
+
+	}
 
 }

@@ -2,18 +2,13 @@ package google_get_calendar_events
 
 import (
 	"google.golang.org/api/calendar/v3"
+	"recordari/domain"
 	"time"
 )
 
-type GoogleGetCalendarEvents struct {
-	Name        string
-	Time        time.Duration
-	Description string
-}
+func Get(service *calendar.Service) []domain.Events {
 
-func Get(service *calendar.Service) []GoogleGetCalendarEvents {
-
-	var personalGoogleCalendarEvents []GoogleGetCalendarEvents
+	var personalGoogleCalendarEvents []domain.Events
 
 	t := time.Now()
 
@@ -31,7 +26,7 @@ func Get(service *calendar.Service) []GoogleGetCalendarEvents {
 	}
 
 	for _, event := range events.Items {
-		personalGoogleCalendarEvents = append(personalGoogleCalendarEvents, GoogleGetCalendarEvents{
+		personalGoogleCalendarEvents = append(personalGoogleCalendarEvents, domain.Events{
 			Name:        event.Summary,
 			Description: event.Description,
 			Time: func() time.Duration {

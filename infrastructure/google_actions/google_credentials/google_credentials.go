@@ -17,7 +17,7 @@ func Get() ([]byte, error) {
 		return nil, err
 	}
 
-	fmt.Println(byteFile, "✅ Archivo de credenciales abierto correctamente.")
+	fmt.Println("✅ Archivo de credenciales abierto correctamente.")
 
 	defer file.Close()
 
