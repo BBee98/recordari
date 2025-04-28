@@ -79,3 +79,8 @@ func (h *GetProjectsHandler) Handle() ([]*Project, error) {
 }
 ````
 
+
+# Usa siempre defer Body.Close() en una función donde obtengas el cuerpo de una petición http y dónde lo leas.
+
+La instrucción ``defer file.Close()`` le dice a ``Go`` (en esa función) que cierre el fichero **cuando haga el return**.
+
