@@ -1,4 +1,4 @@
-package google_get_calendar_events
+package events
 
 import (
 	"google.golang.org/api/calendar/v3"
@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func Get(service *calendar.Service) []domain.Events {
+func GetGoogleCalendarEvents(service *calendar.Service) []domain.Events {
 
 	var personalGoogleCalendarEvents []domain.Events
 

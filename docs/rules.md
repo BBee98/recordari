@@ -84,3 +84,4 @@ func (h *GetProjectsHandler) Handle() ([]*Project, error) {
 
 La instrucción ``defer file.Close()`` le dice a ``Go`` (en esa función) que cierre el fichero **cuando haga el return**.
 
+

@@ -54,7 +54,7 @@ Para entenderlo mejor, ``resp.Body`` es como un "tubo" por el que fluyen los dat
 
 Entonces, en esta función:
 
-````
+````go
 func ReadFile() ([]byte, error) {
 	const credentialsFile = "credentials.json"
 
@@ -72,4 +72,64 @@ func ReadFile() ([]byte, error) {
 	return byteFile, nil
 
 }
+````
+
+# Aprovecharse de las ventajas de ``Go``como lenguaje idiomático.
+
+Si vienes de front (como es mi caso), es posible que te tiente hacer estructuras
+como esta:
+
+````go
+type Message struct {
+	msg string
+	error error
+}
+
+func MyFunction(msg) *Message {
+
+	return &Message{msg, nil}
+}
+````
+
+Algo parecido a como sería en ``typescript``:
+
+````typescript
+
+type Message = {
+    msg: string,
+    error: Error | undefined
+}
+
+function MyFunction(): Message {
+    return {
+        msg: "Hello world", 
+        error: undefined
+    }
+}
+````
+
+Pero esta filosofía **no es del todo correcta para `Go`**.
+
+````
+    Incluso la documentación oficial trata el tema: https://go.dev/blog/error-handling-and-go
+````
+
+
+# io.ReadAll vs os.ReadFile
+
+Diferencias:
+
 ```
+- `io.ReadAll` trabaja con cualquier `io.Reader`
+- `os.ReadFile` trabaja específicamente con archivos del sistem
+```
+
+Casos de uso:
+
+````
+- Usa `os.ReadFile` cuando solo necesites leer un archivo completo del sistema de archivos
+- Usa `io.ReadAll` cuando estés trabajando con interfaces `io.Reader` o necesites más flexibilidad en la fuente de datos
+````
+
+
+

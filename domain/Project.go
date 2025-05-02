@@ -35,8 +35,8 @@ type Project struct {
 	IncludeBookedTimeReports bool             `json:"includeBookedTimeReports"`
 	IncludeBookedTimeGrid    bool             `json:"includeBookedTimeGrid"`
 	Private                  bool             `json:"private"`
-	ProjectManagers          []interface{}    `json:"projectManagers"`
-	Resources                []interface{}    `json:"resources"`
+	ProjectManagers          []string         `json:"projectManagers"`
+	Resources                []string         `json:"resources"`
 	BackgroundColor          string           `json:"backgroundColor"`
 	Metadata                 string           `json:"metadata"`
 	CustomFields             []interface{}    `json:"customFields"`

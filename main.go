@@ -1,23 +1,39 @@
 package main
 
 import (
-	"log"
-	"recordari/infrastructure/google_actions/google_calendar_service"
-	"recordari/infrastructure/google_actions/google_get_calendar_events"
+	"recordari/services/google/calendars"
+	"recordari/services/google/events"
+	"recordari/services/google/get_user_info"
+	"recordari/services/hubplanner"
+	"recordari/ui"
 )
 
 func main() {
 
-	service := google_calendar_service.Get()
+	service, client := calendars.GetGoogleCalendarService()
+	calendarEvents := events.GetGoogleCalendarEvents(service)
+	userEmail, emailErr := get_user_info.Email(client)
+	resources, resourcesErr := hubplanner.GetResources()
+	projects, projectsErr := hubplanner.GetProjects()
 
-	if service == nil {
-		log.Fatalf("Hubo un error en la lectura del fichero")
+	if emailErr != nil {
+		println("No se ha podido obtener el email", emailErr)
 	}
 
-	events := google_get_calendar_events.Get(service)
-
-	if len(events) != 0 {
-
+	if resourcesErr != nil {
+		println("No se han podido obtener los recursos")
 	}
 
+	if projectsErr != nil {
+		println("No se han podido obtener los proyectos")
+	}
+
+	resourceId := hubplanner.GetResourceIdFromEmail(resources, userEmail)
+
+	// projectId := hubplanner.GetResourcesFromProjectsWithId(projects, resourceId)
+
+	hubplanner.RecordUser(resourceId, userEmail)
+	hubplanner.RecordMeetings(projects, calendarEvents, resourceId)
+
+	ui.MountWindow()
 }
