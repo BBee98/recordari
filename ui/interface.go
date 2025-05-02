@@ -37,6 +37,10 @@ func (i *FyneUI) ListProjects(userProjects []domain.Project) *FyneUI {
 			return widget.NewLabel("Proyectos")
 		},
 		func(i widget.ListItemID, o fyne.CanvasObject) {
+			o.(*widget.Label).TextStyle = fyne.TextStyle{
+				Bold:   true,
+				Italic: false,
+			}
 			o.(*widget.Label).SetText(userProjects[i].Name)
 		})
 	i.window.SetContent(list)
