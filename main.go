@@ -33,7 +33,10 @@ func main() {
 	// projectId := hubplanner.GetResourcesFromProjectsWithId(projects, resourceId)
 
 	hubplanner.RecordUser(resourceId, userEmail)
-	hubplanner.RecordMeetings(projects, calendarEvents, resourceId)
+	userProjects := hubplanner.GetProjectsFromResourceId(projects, resourceId)
 
-	ui.MountWindow()
+	println(calendarEvents)
+
+	fyneUI := ui.FyneUI{}
+	fyneUI.Mount().ListProjects(userProjects).Show()
 }

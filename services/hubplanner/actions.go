@@ -78,10 +78,14 @@ func RecordUser(resourceId string, email string) {
 	file.CreateAndWriteFile("user.json", userBytes)
 }
 
-func RecordMeetings(projects []domain.Project, events []domain.Events, resourceId string) {
-
-	thereAreEvents := len(events) != 0
-	if thereAreEvents {
-
+func GetProjectsFromResourceId(projects []domain.Project, resourceId string) []domain.Project {
+	var userProjects []domain.Project
+	for _, project := range projects {
+		for _, projectResources := range project.Resources {
+			if projectResources == resourceId {
+				userProjects = append(userProjects, project)
+			}
+		}
 	}
+	return userProjects
 }
