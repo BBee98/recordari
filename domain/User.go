@@ -1,6 +1,6 @@
 package domain
 
 type User struct {
-	Id    string
+	Data  ResourceElement
 	Email string
 }

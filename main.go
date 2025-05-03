@@ -28,12 +28,12 @@ func main() {
 		println("No se han podido obtener los proyectos")
 	}
 
-	resourceId := hubplanner.GetResourceIdFromEmail(resources, userEmail)
+	resource := hubplanner.GetResourceFromEmail(resources, userEmail)
 
 	// projectId := hubplanner.GetResourcesFromProjectsWithId(projects, resourceId)
 
-	hubplanner.RecordUser(resourceId, userEmail)
-	userProjects := hubplanner.GetProjectsFromResourceId(projects, resourceId)
+	hubplanner.RecordUser(resource, userEmail)
+	userProjects := hubplanner.GetProjectsFromResourceId(projects, resource.ID)
 
 	println(calendarEvents)
 

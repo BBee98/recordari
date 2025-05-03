@@ -54,18 +54,18 @@ func GetResources() (domain.Resource, error) {
 	return resources, nil
 }
 
-func GetResourceIdFromEmail(resources domain.Resource, email string) string {
+func GetResourceFromEmail(resources domain.Resource, email string) domain.ResourceElement {
 	for _, resource := range resources {
 		if string(resource.Email) == email {
-			return resource.ID
+			return resource
 		}
 	}
-	return ""
+	return domain.ResourceElement{}
 }
 
-func RecordUser(resourceId string, email string) {
+func RecordUser(resource domain.ResourceElement, email string) {
 	user := &domain.User{
-		Id:    resourceId,
+		Data:  resource,
 		Email: email,
 	}
 

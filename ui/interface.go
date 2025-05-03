@@ -3,9 +3,11 @@ package ui
 import (
 	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
+	"fyne.io/fyne/v2/canvas"
+	"fyne.io/fyne/v2/container"
 	"fyne.io/fyne/v2/widget"
+	"image/color"
 	"recordari/domain"
-	"recordari/ui/settings"
 )
 
 type FyneUI struct {
@@ -17,8 +19,7 @@ type FyneUI struct {
 func (i *FyneUI) Mount() *FyneUI {
 	a := app.New()
 	w := a.NewWindow("Recordari")
-	settings.SetBasicTheme(a)
-	settings.SetWindowSize(w)
+	w.Resize(fyne.NewSize(600, 600))
 	i.a = a
 	i.window = w
 	return i
@@ -29,22 +30,19 @@ func (i *FyneUI) Close() {
 }
 
 func (i *FyneUI) ListProjects(userProjects []domain.Project) *FyneUI {
-	list := widget.NewList(
-		func() int {
-			return len(userProjects)
-		},
-		func() fyne.CanvasObject {
-			return widget.NewLabel("Proyectos")
-		},
-		func(i widget.ListItemID, o fyne.CanvasObject) {
-			o.(*widget.Label).TextStyle = fyne.TextStyle{
-				Bold:   true,
-				Italic: false,
-			}
-			o.(*widget.Label).SetText(userProjects[i].Name)
-		})
-	i.window.SetContent(list)
-
+	c := container.NewVBox()
+	for _, project := range userProjects {
+		card := widget.NewCard(project.Name, "", widget.NewLabel(project.Name))
+		border := canvas.NewRectangle(color.White)
+		border.StrokeColor = color.Black
+		border.StrokeWidth = 1
+		cardWithBorder := container.NewStack(
+			border,
+			container.NewPadded(card),
+		)
+		c.Add(cardWithBorder)
+	}
+	i.window.SetContent(c)
 	return i
 }
 
